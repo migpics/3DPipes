@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - orbit controls</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				color: #000;
+				font-family:Monospace;
+				font-size:13px;
+				text-align:center;
+				font-weight: bold;
+
+				background-color: #fff;
+				margin: 0px;
+				overflow: hidden;
+			}
+
+			#info {
+				color:#000;
+				position: absolute;
+				top: 0px; width: 100%;
+				padding: 5px;
+
+			}
+
+			a {
+				color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="container"></div>
+
+
+		<script src="../libs/three.min.js"></script>
+		<script src="../libs/OrbitControls.js"></script>
+		<script src="../libs/Detector.js"></script>
+		<script src="../libs/stats.min.js"></script>
+		<script type="test/javascript" src="selectme.js"></script>
+
+		<script>
+
+			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+
+			var container, stats;
+
+			var camera, controls, scene, renderer;
+
+			init();
+			render();
+
+			function animate() {
+
+				requestAnimationFrame(animate);
+				controls.update();
+
+			}
+
+			function init() {
+
+				//This code gives it the ability to spin around.
+
+				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.z = 750;
+				camera.position.y = 500;
+
+				controls = new THREE.OrbitControls( camera );
+				controls.damping = 0.2;
+				controls.addEventListener( 'change', render );
+
+				scene = new THREE.Scene();
+				scene.fog = new THREE.FogExp2( 0xcccccc, 0 );
+
+				// This adds objects to the world
+
+				
+
+				
+				var pipe00001_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
+				var pipe00001_material =  new THREE.MeshLambertMaterial( { color: 0x0066ff, shading: THREE.FlatShading } );
+				var pipe00001 = new THREE.Mesh(pipe00001_geometry, pipe00001_material );
+				
+				pipe00001.position.x = 0;
+				pipe00001.position.y = 25;
+				pipe00001.rotation.z = 90*Math.PI/180;	
+				pipe00001.position.z = 34;	
+				pipe00001.updateMatrix();
+				pipe00001.matrixAutoUpdate = false;			
+				scene.add(pipe00001);
+
+				var pipe00002_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
+				var pipe00002_material =  new THREE.MeshLambertMaterial( { color:0x0066FF, shading: THREE.FlatShading } );
+				var pipe00002 = new THREE.Mesh(pipe00002_geometry, pipe00002_material );
+				
+				pipe00002.position.x = 264;
+				pipe00002.position.y = 43;
+				pipe00002.rotation.z = 98*Math.PI/180;	
+				pipe00002.position.z = 36;	
+				pipe00002.updateMatrix();
+				pipe00002.matrixAutoUpdate = false;			
+				scene.add(pipe00002);
+
+
+				var pipe00003_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
+				var pipe00003_material =  new THREE.MeshLambertMaterial( { color:0x0066FF, shading: THREE.FlatShading } );
+				var pipe00003 = new THREE.Mesh(pipe00003_geometry, pipe00003_material );
+				
+				pipe00003.position.x = 2*264;
+				pipe00003.position.y = 78;
+				pipe00003.rotation.z = 97*Math.PI/180;	
+				pipe00003.position.z = 34;	
+				pipe00003.updateMatrix();
+				pipe00003.matrixAutoUpdate = false;			
+				scene.add(pipe00003);
+
+
+
+				var pipe00004_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
+				var pipe00004_material =  new THREE.MeshLambertMaterial( { color:0x0066FF, shading: THREE.FlatShading } );
+				var pipe00004 = new THREE.Mesh(pipe00003_geometry, pipe00003_material );
+				
+				pipe00004.position.x = 3*264;
+				pipe00004.position.y = 105;
+				pipe00004.rotation.z = 95*Math.PI/180;	
+				pipe00004.position.z = 34;	
+				pipe00004.updateMatrix();
+				pipe00004.matrixAutoUpdate = false;			
+				scene.add(pipe00004);
+
+				function onPipeDown(event) {
+					alert('hi');
+				}
+
+
+
+				pipe00001.addeventlistener('mousedown', onPipeDown, false);
+
+				
+				
+
+				// This adds lights.  Two directional ligths and one Ambient light.
+
+				light = new THREE.DirectionalLight( 0xffffff );
+				light.position.set( 1, 5, 1 );
+				scene.add( light );
+
+				light = new THREE.DirectionalLight( 0x002288 );
+				light.position.set( -1, -1, -1 );
+				scene.add( light );
+
+				light = new THREE.AmbientLight( 0x222222 );
+				scene.add( light );
+
+
+				// renderer
+
+				renderer = new THREE.WebGLRenderer( { antialias: false } );
+				renderer.setClearColor( scene.fog.color );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				container = document.getElementById( 'container' );
+				container.appendChild( renderer.domElement );
+
+				stats = new Stats();
+				stats.domElement.style.position = 'absolute';
+				stats.domElement.style.top = '0px';
+				stats.domElement.style.zIndex = 100;
+				container.appendChild( stats.domElement );
+
+				//
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+				animate();
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				render();
+
+			}
+
+			function render() {
+
+				renderer.render( scene, camera );
+				stats.update();
+
+			}
+
+
+		</script>
+
+	</body>
+</html>
