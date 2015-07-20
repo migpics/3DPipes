@@ -11,16 +11,20 @@
 				font-size:13px;
 				text-align:center;
 				font-weight: bold;
+
 				background-color: #fff;
 				margin: 0px;
 				overflow: hidden;
 			}
+
 			#info {
 				color:#000;
 				position: absolute;
 				top: 0px; width: 100%;
 				padding: 5px;
+
 			}
+
 			a {
 				color: red;
 			}
@@ -38,28 +42,43 @@
 		<script type="test/javascript" src="selectme.js"></script>
 
 		<script>
+
 			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+
 			var container, stats;
+
 			var camera, controls, scene, renderer;
+
 			init();
 			render();
+
 			function animate() {
+
 				requestAnimationFrame(animate);
 				controls.update();
+
 			}
+
 			function init() {
+
 				//This code gives it the ability to spin around.
+
 				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
 			        raycaster = new THREE.Raycaster();
 				camera.position.z = 750;
 				camera.position.y = 500;
+
 				controls = new THREE.OrbitControls( camera );
 				controls.damping = 0.2;
 				controls.addEventListener( 'change', render );
+
 				scene = new THREE.Scene();
 				scene.fog = new THREE.FogExp2( 0xcccccc, 0 );
+
 				// This adds objects to the world
+
 				
+
 				
 				var pipe00001_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
 				var pipe00001_material =  new THREE.MeshLambertMaterial( { color: 0x0066ff, shading: THREE.FlatShading } );
@@ -72,6 +91,7 @@
 				pipe00001.updateMatrix();
 				pipe00001.matrixAutoUpdate = false;			
 				scene.add(pipe00001);
+
 				var pipe00002_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
 				var pipe00002_material =  new THREE.MeshLambertMaterial( { color:0x0066FF, shading: THREE.FlatShading } );
 				var pipe00002 = new THREE.Mesh(pipe00002_geometry, pipe00002_material );
@@ -83,6 +103,8 @@
 				pipe00002.updateMatrix();
 				pipe00002.matrixAutoUpdate = false;			
 				scene.add(pipe00002);
+
+
 				var pipe00003_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
 				var pipe00003_material =  new THREE.MeshLambertMaterial( { color:0x0066FF, shading: THREE.FlatShading } );
 				var pipe00003 = new THREE.Mesh(pipe00003_geometry, pipe00003_material );
@@ -94,6 +116,9 @@
 				pipe00003.updateMatrix();
 				pipe00003.matrixAutoUpdate = false;			
 				scene.add(pipe00003);
+
+
+
 				var pipe00004_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
 				var pipe00004_material =  new THREE.MeshLambertMaterial( { color:0x0066FF, shading: THREE.FlatShading } );
 				var pipe00004 = new THREE.Mesh(pipe00003_geometry, pipe00003_material );
@@ -105,55 +130,70 @@
 				pipe00004.updateMatrix();
 				pipe00004.matrixAutoUpdate = false;			
 				scene.add(pipe00004);
+
 				function onPipeDown(event) {
 					alert('hi');
 				}
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 8e98857fdc75329238abce370970690bc1d6d1a8
 			        pipe00001.callback = function() { console.log( this.name ); }
 				
 				
+
 				// This adds lights.  Two directional ligths and one Ambient light.
+
 				light = new THREE.DirectionalLight( 0xffffff );
 				light.position.set( 1, 5, 1 );
 				scene.add( light );
+
 				light = new THREE.DirectionalLight( 0x002288 );
 				light.position.set( -1, -1, -1 );
 				scene.add( light );
+
 				light = new THREE.AmbientLight( 0x222222 );
 				scene.add( light );
+
+
 				// renderer
+
 				renderer = new THREE.WebGLRenderer( { antialias: false } );
 				renderer.setClearColor( scene.fog.color );
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
+
 				container = document.getElementById( 'container' );
 				container.appendChild( renderer.domElement );
+
 				stats = new Stats();
 				stats.domElement.style.position = 'absolute';
 				stats.domElement.style.top = '0px';
 				stats.domElement.style.zIndex = 100;
 				container.appendChild( stats.domElement );
-				//
-				window.addEventListener( 'resize', onWindowResize, false );
-				animate();
-			}
 
+				//
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+				animate();
+
+			}
 
 			function onWindowResize() {
+
 				camera.aspect = window.innerWidth / window.innerHeight;
 				camera.updateProjectionMatrix();
+
 				renderer.setSize( window.innerWidth, window.innerHeight );
+
 				render();
+
 			}
 
-
 			function render() {
+
 				renderer.render( scene, camera );
 				stats.update();
+
 			}
 
 function onDocumentMouseDown( event ) {
@@ -179,21 +219,6 @@ document.addEventListener("click", function(event){
     onDocumentMouseDown(event)
 });
 
-			function onDocumentMouseDown( event ) {
-    				event.preventDefault();
-				console.log(event)
-    				pipe00001.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
-   				pipe00001.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
-    				raycaster.setFromCamera( pipe00001, camera );
-    				var intersects = raycaster.intersectObjects( objects ); 
-    				if ( intersects.length > 0 ) {
-        				intersects[0].object.callback();
-    			}
-		}
-
-			document.addEventListener("click", function(event){
-    			onDocumentMouseDown(event)
-		});
 		</script>
 
 	</body>
