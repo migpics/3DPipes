@@ -32,6 +32,7 @@ function init() {
     var light = new THREE.DirectionalLight( 0xffffff, 1 );
     light.position.set( 1, 1, 1 ).normalize();
     scene.add( light );
+
     json = {"pipes": [
 	{
 	    "name": "test 1", 
@@ -44,31 +45,36 @@ function init() {
 	    "rotation_z": 1.0
     },
 	{
-	    "name": "test 1", 
+	    "name": "test 2", 
 	    "diameter": 10.0,
 	    "pipe_length": 20.0,
-	    "position_x": 1.0,
-	    "position_y": 1.0,
-	    "position_z": 1.0,
-	    "rotation_x": 1.0,
-	    "rotation_z": 1.0
+	    "position_x": 20,
+	    "position_y": 20,
+	    "position_z": 20,
+	    "rotation_x": 45,
+	    "rotation_z": 10
 	},
     ]}
 
     //mig: do forloop over json.pipes
 
+
+
     for (i=0; i < json.pipes.length; i++) {
+	  
+	  var obj = json.pipes[i];
 	
-	    var json.pipes[name] = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
-    	    var json.pipes.name + material =  new THREE.MeshLambertMaterial( { color: 0x0066ff, shading: THREE.FlatShading } );
-    	    json.pipes.[name] = new THREE.Mesh(json.pipes.name + '_geometry', json.pips.name + '_material' );    
-            json.pipes.[name].position.x = json.pipes[position_x];
-            json.pipes.[name].position.y = json.pipes.[position_y];
-            json.pipes.[name].rotation.z = json.pipes.[rotation_z]*Math.PI/180;	
-            json.pipes.[name].position.z = json.pipes.[position_z];	
-            json.pipes.[name].updateMatrix();
-            json.pipes.[name].matrixAutoUpdate = false;			
-            scene.add(json.pipes.[name]);
+	   var object_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
+    	   var object_material =  new THREE.MeshLambertMaterial( { color: 0x0066ff, shading: THREE.FlatShading } );
+    	   object = new THREE.Mesh(object_geometry, object_material );  
+	   object.name = json.pipes[i].name;  
+           object.position.x = json.pipes[i].position_x;
+           object.position.y = json.pipes[i].position_y;
+           object.rotation.z = json.pipes[i].rotation_z*Math.PI/180;	
+           object.position.z = json.pipes[i].position_z;	
+           object.updateMatrix();
+           object.matrixAutoUpdate = false;			
+           scene.add(object);
 	
 	}
 
@@ -159,7 +165,7 @@ function render() {
 	    INTERSECTED = intersects[ 0 ].object;
 	    INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
 	    INTERSECTED.material.emissive.setHex( 0xff0000 );
-	    alert ("Insert Data Here");
+
 	    
 	}
 	
