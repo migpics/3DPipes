@@ -36,7 +36,7 @@ function init() {
 	{
 	    "name": "test 1", 
 	    "diameter": 10.0,
-	    "length": 20.0,
+	    "pipe_length": 20.0,
 	    "position_x": 1.0,
 	    "position_y": 1.0,
 	    "position_z": 1.0,
@@ -46,7 +46,7 @@ function init() {
 	{
 	    "name": "test 1", 
 	    "diameter": 10.0,
-	    "length": 20.0,
+	    "pipe_length": 20.0,
 	    "position_x": 1.0,
 	    "position_y": 1.0,
 	    "position_z": 1.0,
@@ -57,16 +57,31 @@ function init() {
 
     //mig: do forloop over json.pipes
 
-    var pipe00001_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
-    var pipe00001_material =  new THREE.MeshLambertMaterial( { color: 0x0066ff, shading: THREE.FlatShading } );
-    pipe00001 = new THREE.Mesh(pipe00001_geometry, pipe00001_material );    
-    pipe00001.position.x = 0;
-    pipe00001.position.y = 25;
-    pipe00001.rotation.z = 90*Math.PI/180;	
-    pipe00001.position.z = 34;	
-    pipe00001.updateMatrix();
-    pipe00001.matrixAutoUpdate = false;			
-    scene.add(pipe00001);
+    for (i=0; i < json.pipes.length; i++) {
+	
+	    var json.pipes[name] = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
+    	    var json.pipes.name + material =  new THREE.MeshLambertMaterial( { color: 0x0066ff, shading: THREE.FlatShading } );
+    	    json.pipes.[name] = new THREE.Mesh(json.pipes.name + '_geometry', json.pips.name + '_material' );    
+            json.pipes.[name].position.x = json.pipes[position_x];
+            json.pipes.[name].position.y = json.pipes.[position_y];
+            json.pipes.[name].rotation.z = json.pipes.[rotation_z]*Math.PI/180;	
+            json.pipes.[name].position.z = json.pipes.[position_z];	
+            json.pipes.[name].updateMatrix();
+            json.pipes.[name].matrixAutoUpdate = false;			
+            scene.add(json.pipes.[name]);
+	
+	}
+
+    //var pipe00001_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
+    //var pipe00001_material =  new THREE.MeshLambertMaterial( { color: 0x0066ff, shading: THREE.FlatShading } );
+    //pipe00001 = new THREE.Mesh(pipe00001_geometry, pipe00001_material );    
+   // pipe00001.position.x = 0;
+   // pipe00001.position.y = 25;
+   // pipe00001.rotation.z = 90*Math.PI/180;	
+   // pipe00001.position.z = 34;	
+   // pipe00001.updateMatrix();
+   // pipe00001.matrixAutoUpdate = false;			
+   // scene.add(pipe00001);
     
     raycaster = new THREE.Raycaster();
     
@@ -120,12 +135,12 @@ function animate() {
 
 function render() {
     
-    theta += 0.1;
+    //theta += 0.1;
     
-    camera.position.x = radius * Math.sin( THREE.Math.degToRad( theta ) );
-    camera.position.y = radius * Math.sin( THREE.Math.degToRad( theta ) );
-    camera.position.z = radius * Math.cos( THREE.Math.degToRad( theta ) );
-    camera.lookAt( scene.position );
+   // camera.position.x = radius * Math.sin( THREE.Math.degToRad( theta ) );
+   // camera.position.y = radius * Math.sin( THREE.Math.degToRad( theta ) );
+    //camera.position.z = radius * Math.cos( THREE.Math.degToRad( theta ) );
+   // camera.lookAt( scene.position );
     
     camera.updateMatrixWorld();
     
@@ -144,6 +159,7 @@ function render() {
 	    INTERSECTED = intersects[ 0 ].object;
 	    INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
 	    INTERSECTED.material.emissive.setHex( 0xff0000 );
+	    alert ("Insert Data Here");
 	    
 	}
 	
