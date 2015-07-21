@@ -48,6 +48,7 @@
 			var container, stats;
 
 			var camera, controls, scene, renderer;
+			var mouse = new THREE.Vector2(), INTERSECTED;
 
 			init();
 			render();
@@ -91,52 +92,6 @@
 				pipe00001.updateMatrix();
 				pipe00001.matrixAutoUpdate = false;			
 				scene.add(pipe00001);
-
-				var pipe00002_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
-				var pipe00002_material =  new THREE.MeshLambertMaterial( { color:0x0066FF, shading: THREE.FlatShading } );
-				pipe00002 = new THREE.Mesh(pipe00002_geometry, pipe00002_material );
-				
-				pipe00002.position.x = 264;
-				pipe00002.position.y = 43;
-				pipe00002.rotation.z = 98*Math.PI/180;	
-				pipe00002.position.z = 36;	
-				pipe00002.updateMatrix();
-				pipe00002.matrixAutoUpdate = false;			
-				scene.add(pipe00002);
-
-
-				var pipe00003_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
-				var pipe00003_material =  new THREE.MeshLambertMaterial( { color:0x0066FF, shading: THREE.FlatShading } );
-				pipe00003 = new THREE.Mesh(pipe00003_geometry, pipe00003_material );
-				
-				pipe00003.position.x = 2*264;
-				pipe00003.position.y = 78;
-				pipe00003.rotation.z = 97*Math.PI/180;	
-				pipe00003.position.z = 34;	
-				pipe00003.updateMatrix();
-				pipe00003.matrixAutoUpdate = false;			
-				scene.add(pipe00003);
-
-
-
-				var pipe00004_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
-				var pipe00004_material =  new THREE.MeshLambertMaterial( { color:0x0066FF, shading: THREE.FlatShading } );
-				pipe00004 = new THREE.Mesh(pipe00003_geometry, pipe00003_material );
-				
-				pipe00004.position.x = 3*264;
-				pipe00004.position.y = 105;
-				pipe00004.rotation.z = 95*Math.PI/180;	
-				pipe00004.position.z = 34;	
-				pipe00004.updateMatrix();
-				pipe00004.matrixAutoUpdate = false;			
-				scene.add(pipe00004);
-
-				function onPipeDown(event) {
-					alert('hi');
-				}
-
-
-			        pipe00001.callback = function() { console.log( this.name ); }
 				
 				
 
@@ -173,10 +128,10 @@
 				//
 
 				window.addEventListener( 'resize', onWindowResize, false );
+				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 
 				animate();
-
-				myPipes = [pipe00001, pipe00002, pipe00003, pipe00004];
+				
 
 			}
 
@@ -197,35 +152,52 @@
 
 			function render() {
 
-				renderer.render( scene, camera );
+				
 				stats.update();
 
+				raycaster.setFromCamera( mouse, camera );
+
+				var intersects = raycaster.intersectObjects( scene.children );
+				
+
+				if ( intersects.length > 0 ) {
+
+					if ( INTERSECTED != intersects[ 0 ].object ) {
+
+						if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+
+						INTERSECTED = intersects[ 0 ].object;
+						INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+						INTERSECTED.material.emissive.setHex( 0xff0000 );
+						alert (object);
+						
+
+					}
+
+				} else {
+
+					if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+
+					INTERSECTED = null;
+
+				}
+				renderer.render( scene, camera );
+
 			}
 
+
+
+			function onDocumentMouseMove( event ) {
+
+				event.preventDefault();
+
+				mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+				mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+			}
 			
 
-			function onDocumentMouseDown( event ) {
 
-   			 	event.preventDefault();
-				console.log(event)
-   				pipe00001.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
-    				pipe00001.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
-
-    				raycaster.setFromCamera( pipe00001, camera );
-
-    				var intersects = raycaster.intersectObjects( myPipes ); 
-
-    				if ( intersects.length > 0 ) {
-		
-        				intersects[0].myPipes.callback();
-
-    				}
-
-			}
-
-			document.addEventListener("click", function(event){
-    			onDocumentMouseDown(event)
-});
 
 		</script>
 
