@@ -38,21 +38,51 @@ function init() {
 	    "name": "test 1", 
 	    "diameter": 10.0,
 	    "pipe_length": 20.0,
-	    "position_x": 1.0,
+	    "position_x": 0,
 	    "position_y": 1.0,
 	    "position_z": 1.0,
-	    "rotation_x": 1.0,
-	    "rotation_z": 1.0
+	    "rotation_x": 90,
+	    "rotation_z": 90
     },
 	{
 	    "name": "test 2", 
 	    "diameter": 10.0,
 	    "pipe_length": 20.0,
-	    "position_x": 20,
+	    "position_x": 512,
 	    "position_y": 20,
 	    "position_z": 20,
-	    "rotation_x": 45,
-	    "rotation_z": 10
+	    "rotation_x": 90,
+	    "rotation_z": 90
+	},
+	{
+	    "name": "test 3", 
+	    "diameter": 10.0,
+	    "pipe_length": 20.0,
+	    "position_x": 750,
+	    "position_y": 20,
+	    "position_z": 20,
+	    "rotation_x": 90,
+	    "rotation_z": 90
+	},
+	{
+	    "name": "test 4", 
+	    "diameter": 10.0,
+	    "pipe_length": 20.0,
+	    "position_x": 900,
+	    "position_y": 20,
+	    "position_z": 20,
+	    "rotation_x": 90,
+	    "rotation_z": 90
+	},
+	{
+	    "name": "test 5", 
+	    "diameter": 10.0,
+	    "pipe_length": 20.0,
+	    "position_x": 1150,
+	    "position_y": 20,
+	    "position_z": 20,
+	    "rotation_x": 90,
+	    "rotation_z": 90
 	},
     ]}
 
@@ -62,7 +92,7 @@ function init() {
 
     for (i=0; i < json.pipes.length; i++) {
 	  
-	  var obj = json.pipes[i];
+	  //var obj = json.pipes[i];
 	
 	   var object_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
     	   var object_material =  new THREE.MeshLambertMaterial( { color: 0x0066ff, shading: THREE.FlatShading } );
@@ -127,6 +157,7 @@ function onDocumentClick( event ) {
     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
     
+
 }
 
 
@@ -165,6 +196,7 @@ function render() {
 	    INTERSECTED = intersects[ 0 ].object;
 	    INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
 	    INTERSECTED.material.emissive.setHex( 0xff0000 );
+
 
 	    
 	}
