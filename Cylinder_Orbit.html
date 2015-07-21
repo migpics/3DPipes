@@ -39,7 +39,7 @@
 		<script src="three.js/examples/js/controls/OrbitControls.js"></script>
 		<script src="three.js/examples/js/Detector.js"></script>
 		<script src="three.js/examples/js/libs/stats.min.js"></script>
-		<script type="test/javascript" src="selectme.js"></script>
+		
 
 		<script>
 
@@ -94,7 +94,7 @@
 
 				var pipe00002_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
 				var pipe00002_material =  new THREE.MeshLambertMaterial( { color:0x0066FF, shading: THREE.FlatShading } );
-				var pipe00002 = new THREE.Mesh(pipe00002_geometry, pipe00002_material );
+				pipe00002 = new THREE.Mesh(pipe00002_geometry, pipe00002_material );
 				
 				pipe00002.position.x = 264;
 				pipe00002.position.y = 43;
@@ -107,7 +107,7 @@
 
 				var pipe00003_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
 				var pipe00003_material =  new THREE.MeshLambertMaterial( { color:0x0066FF, shading: THREE.FlatShading } );
-				var pipe00003 = new THREE.Mesh(pipe00003_geometry, pipe00003_material );
+				pipe00003 = new THREE.Mesh(pipe00003_geometry, pipe00003_material );
 				
 				pipe00003.position.x = 2*264;
 				pipe00003.position.y = 78;
@@ -121,7 +121,7 @@
 
 				var pipe00004_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
 				var pipe00004_material =  new THREE.MeshLambertMaterial( { color:0x0066FF, shading: THREE.FlatShading } );
-				var pipe00004 = new THREE.Mesh(pipe00003_geometry, pipe00003_material );
+				pipe00004 = new THREE.Mesh(pipe00003_geometry, pipe00003_material );
 				
 				pipe00004.position.x = 3*264;
 				pipe00004.position.y = 105;
@@ -176,7 +176,13 @@
 
 				animate();
 
+				myPipes = [pipe00001, pipe00002, pipe00003, pipe00004];
+
 			}
+
+
+			
+			
 
 			function onWindowResize() {
 
@@ -196,27 +202,29 @@
 
 			}
 
-function onDocumentMouseDown( event ) {
+			
 
-    event.preventDefault();
-			console.log(event)
-    pipe00001.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
-    pipe00001.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+			function onDocumentMouseDown( event ) {
 
-    raycaster.setFromCamera( pipe00001, camera );
+   			 	event.preventDefault();
+				console.log(event)
+   				pipe00001.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+    				pipe00001.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
 
-    var intersects = raycaster.intersectObjects( objects ); 
+    				raycaster.setFromCamera( pipe00001, camera );
 
-    if ( intersects.length > 0 ) {
+    				var intersects = raycaster.intersectObjects( myPipes ); 
 
-        intersects[0].object.callback();
+    				if ( intersects.length > 0 ) {
+		
+        				intersects[0].myPipes.callback();
 
-    }
+    				}
 
-}
+			}
 
-document.addEventListener("click", function(event){
-    onDocumentMouseDown(event)
+			document.addEventListener("click", function(event){
+    			onDocumentMouseDown(event)
 });
 
 		</script>
