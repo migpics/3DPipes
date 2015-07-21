@@ -1,0 +1,22 @@
+{"pipes": [
+    {
+	"name": "test 1", 
+	"diameter": 10.0,
+	"length": 20.0,
+	"position_x": 1.0,
+	"position_y": 1.0,
+	"position_z": 1.0,
+	"rotation_x": 1.0,
+	"rotation_z": 1.0
+    },
+    {
+	"name": "test 1", 
+	"diameter": 10.0,
+	"length": 20.0,
+	"position_x": 1.0,
+	"position_y": 1.0,
+	"position_z": 1.0,
+	"rotation_x": 1.0,
+	"rotation_z": 1.0
+    },
+]}

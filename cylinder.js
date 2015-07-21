@@ -32,11 +32,34 @@ function init() {
     var light = new THREE.DirectionalLight( 0xffffff, 1 );
     light.position.set( 1, 1, 1 ).normalize();
     scene.add( light );
-    
+    json = {"pipes": [
+	{
+	    "name": "test 1", 
+	    "diameter": 10.0,
+	    "length": 20.0,
+	    "position_x": 1.0,
+	    "position_y": 1.0,
+	    "position_z": 1.0,
+	    "rotation_x": 1.0,
+	    "rotation_z": 1.0
+    },
+	{
+	    "name": "test 1", 
+	    "diameter": 10.0,
+	    "length": 20.0,
+	    "position_x": 1.0,
+	    "position_y": 1.0,
+	    "position_z": 1.0,
+	    "rotation_x": 1.0,
+	    "rotation_z": 1.0
+	},
+    ]}
+
+    //mig: do forloop over json.pipes
+
     var pipe00001_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
     var pipe00001_material =  new THREE.MeshLambertMaterial( { color: 0x0066ff, shading: THREE.FlatShading } );
-    pipe00001 = new THREE.Mesh(pipe00001_geometry, pipe00001_material );
-    
+    pipe00001 = new THREE.Mesh(pipe00001_geometry, pipe00001_material );    
     pipe00001.position.x = 0;
     pipe00001.position.y = 25;
     pipe00001.rotation.z = 90*Math.PI/180;	
