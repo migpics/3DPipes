@@ -36,59 +36,87 @@ function init() {
     json = {"pipes": [
 	{
 	    "name": "test 1", 
-	    "diameter": 10.0,
+	    "diameter": 72,
 	    "pipe_length": 20.0,
 	    "position_x": 0,
-	    "position_y": 1.0,
-	    "position_z": 1.0,
-	    "rotation_x": 90,
+	    "position_y": 0,
+	    "position_z": 0,
+	    "rotation_x": 0,
 	    "rotation_z": 90
     },
 	{
 	    "name": "test 2", 
-	    "diameter": 10.0,
+	    "diameter": 72,
 	    "pipe_length": 20.0,
-	    "position_x": 512,
-	    "position_y": 20,
-	    "position_z": 20,
-	    "rotation_x": 90,
+	    "position_x": 264,
+	    "position_y": 0,
+	    "position_z": 0,
+	    "rotation_x": 0,
 	    "rotation_z": 90
 	},
 	{
 	    "name": "test 3", 
-	    "diameter": 10.0,
+	    "diameter": 72,
 	    "pipe_length": 20.0,
-	    "position_x": 750,
-	    "position_y": 20,
-	    "position_z": 20,
-	    "rotation_x": 90,
-	    "rotation_z": 90
+	    "position_x": 528,
+	    "position_y": -15,
+	    "position_z": 0,
+	    "rotation_x": 0,
+	    "rotation_z": 84
 	},
 	{
 	    "name": "test 4", 
-	    "diameter": 10.0,
+	    "diameter": 72,
 	    "pipe_length": 20.0,
-	    "position_x": 900,
-	    "position_y": 20,
-	    "position_z": 20,
-	    "rotation_x": 90,
-	    "rotation_z": 90
+	    "position_x": 792,
+	    "position_y": -50,
+	    "position_z": 0,
+	    "rotation_x": 0,
+	    "rotation_z": 80
 	},
 	{
 	    "name": "test 5", 
-	    "diameter": 10.0,
+	    "diameter": 72,
 	    "pipe_length": 20.0,
-	    "position_x": 1150,
-	    "position_y": 20,
-	    "position_z": 20,
-	    "rotation_x": 90,
+	    "position_x": 1056,
+	    "position_y": -110,
+	    "position_z": 0,
+	    "rotation_x": 0,
+	    "rotation_z": 75
+	},
+	{
+	    "name": "test 6", 
+	    "diameter": 72,
+	    "pipe_length": 20.0,
+	    "position_x": 1320,
+	    "position_y": -145,
+	    "position_z": 0,
+	    "rotation_x": 0,
 	    "rotation_z": 90
 	},
+	{
+	    "name": "test 7", 
+	    "diameter": 72,
+	    "pipe_length": 20.0,
+	    "position_x": 1584,
+	    "position_y": -135,
+	    "position_z": 0,
+	    "rotation_x": 0,
+	    "rotation_z": 95
+	},
+	{
+	    "name": "test 8", 
+	    "diameter": 72,
+	    "pipe_length": 20.0,
+	    "position_x": 1848,
+	    "position_y": -100,
+	    "position_z": 0,
+	    "rotation_x": 0,
+	    "rotation_z": 100
+	},
+
+
     ]}
-
-    //mig: do forloop over json.pipes
-
-
 
     for (i=0; i < json.pipes.length; i++) {
 	  
@@ -108,17 +136,58 @@ function init() {
 	
 	}
 
-    //var pipe00001_geometry = new THREE.CylinderGeometry(36, 36, 264, 32, 2);
-    //var pipe00001_material =  new THREE.MeshLambertMaterial( { color: 0x0066ff, shading: THREE.FlatShading } );
-    //pipe00001 = new THREE.Mesh(pipe00001_geometry, pipe00001_material );    
-   // pipe00001.position.x = 0;
-   // pipe00001.position.y = 25;
-   // pipe00001.rotation.z = 90*Math.PI/180;	
-   // pipe00001.position.z = 34;	
-   // pipe00001.updateMatrix();
-   // pipe00001.matrixAutoUpdate = false;			
-   // scene.add(pipe00001);
-    
+
+    json = {"structures": [
+	{
+	    "name": "Structure 1", 
+	    "diameter": 30,
+	    "pipe_length": 36,
+	    "position_x": 0,
+	    "position_y": 36,
+	    "position_z": 0,
+	    "rotation_x": 0,
+	    "rotation_z": 0
+    	},
+
+	{
+	    "name": "Structure 1", 
+	    "diameter": 30,
+	    "pipe_length": 36,
+	    "position_x": 1320,
+	    "position_y": -100,
+	    "position_z": 0,
+	    "rotation_x": 0,
+	    "rotation_z": 0
+    	},
+
+
+
+    ]}
+
+    //mig: do forloop over json.pipes
+
+
+
+    for (i=0; i < json.structures.length; i++) {
+	  
+	
+	   var object_geometry = new THREE.CylinderGeometry(json.structures[i].diameter/2, json.structures[i].diameter/2, json.structures[i].pipe_length, 32, 2);
+    	   var object_material =  new THREE.MeshLambertMaterial( { color: 0x0066ff, shading: THREE.FlatShading } );
+    	   object = new THREE.Mesh(object_geometry, object_material );  
+	   object.name = json.structures[i].name;  
+           object.position.x = json.structures[i].position_x;
+           object.position.y = json.structures[i].position_y;
+           object.rotation.z = json.structures[i].rotation_z*Math.PI/180;	
+           object.position.z = json.structures[i].position_z;	
+           object.updateMatrix();
+           object.matrixAutoUpdate = false;			
+           scene.add(object);
+	
+	}
+
+
+
+
     raycaster = new THREE.Raycaster();
     
     renderer = new THREE.WebGLRenderer();
